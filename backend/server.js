@@ -6,6 +6,8 @@ const workoutRoutes = require("./routes/workout");
 const userRoutes = require("./routes/user");
 const cors = require("cors");
 
+MONGO_URI='mongodb+srv://pakhileshbsc23:akhilesh123@cluster0.qi1jjoo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+PORT=3000
 //express app
 const app = express();
 
@@ -27,12 +29,12 @@ app.use("/api/user", userRoutes);
 
 //connect to db
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(MONGO_URI)
   .then(() => {
     console.log("Connected to DB");
     //listens for request
-    app.listen(process.env.PORT, () => {
-      console.log("listening on port", process.env.PORT);
+    app.listen(PORT, () => {
+      console.log("listening on port", PORT);
     });
   })
   .catch((err) => {

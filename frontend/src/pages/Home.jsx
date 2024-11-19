@@ -1,20 +1,21 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
-// components
 import WorkoutDetails from "../components/WorkoutDetails";
 import WorkoutForm from "../components/WorkoutForm";
 import { useAuthContext } from "../hooks/useAuthContext";
+import ExerciseRecommendationForm from "../components/ExerciseRecommendationForm";
 
 const Home = () => {
   const { workouts, dispatch } = useWorkoutsContext();
   const { user } = useAuthContext();
+
   useEffect(() => {
     const fetchWorkouts = async () => {
       const response = await fetch(
         process.env.REACT_APP_API_URL + "/api/workouts",
         {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${user?.token}`, // Use optional chaining to avoid errors if user is null
           },
         }
       );
@@ -31,6 +32,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      <ExerciseRecommendationForm/>
       <div className="workouts">
         {workouts &&
           workouts.map((workout) => (
